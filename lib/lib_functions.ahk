@@ -74,6 +74,16 @@ URLencode(str) ;用于链接的话只要符号转换就行。需要全部转换�
     return str
 }
 
+; 检查文本是否是一个合法的 url
+URLCheck(str)
+{
+    if (str && RegExMatch(str, "^(https?://|www\.)[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$")) {
+        return true
+    }
+
+    return false
+}
+
 
 checkStrType(str, fuzzy:=0)
 {
