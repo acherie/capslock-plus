@@ -703,8 +703,10 @@ keyFunc_winbind_activate(n){
 
 keyFunc_winbind_binding(n){
     global
+    OutputDebug, %A_Now%: lib_keysFunction.keyFunc_winbind_binding, num: %n%
     if(tapTimes[n]=="")
         initWinsInfos(n)
+    OutputDebug, %A_Now%: winbind binding %n%
     tapTimes(n)
     return
 }

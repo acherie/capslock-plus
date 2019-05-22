@@ -457,6 +457,7 @@ return
 
 <!2::
 try
+    OutputDebug, %A_Now%: caps_alt_2
     runFunc(keyset.caps_lalt_2)
 Capslock2:=""
 return

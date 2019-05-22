@@ -1,4 +1,6 @@
-﻿bindWinsInit:
+﻿#Include lib_json.ahk   	;引入json解析文件
+
+bindWinsInit:
 global winsInfos:={}
 global tapTimes:={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:0,17:0,18:0,19:0,20:0,btn:-1}
 global winTapedX ;winTapedX用于判断多窗口绑定的切换是哪个按键的，在CapsLock松开后winsSort()用来判定一次窗口在窗口组的位置
@@ -60,6 +62,7 @@ return
 ;=function=start============================================================================
 getWinInfo(btnx, bindType)
 {
+  OutputDebug, %A_Now%: lib_bindWins.getWinInfo, btnx: %btnx%, bindType: %bindType%
   winId:=WinExist("A") ;获取id
   WinGetClass, winClass, ahk_id %winId% ;获取该id窗口的class
   WinGet, winExe, ProcessPath, ahk_id %winId% ;获取该id窗口的path
@@ -72,6 +75,8 @@ getWinInfo(btnx, bindType)
     infosGx.id.0:=winId
     infosGx.class.0:=winClass
     infosGx.exe.0:=winExe
+    winInfosJson := JSON.Dump(infosGx)
+    OutputDebug, %winInfosJson%
     IfExist, CapsLock+winsInfosRecorder.ini
     { 
       IniWrite, 1, CapsLock+winsInfosRecorder.ini, %btnx%, bindType		;写入bindType到ini
@@ -409,9 +414,11 @@ tapTimes(btnx) ;判断敲击次数,绑定按键的入口函数，判断完敲击
 
 
 doGetWinInfo:
+OutputDebug, %A_Now%: lib_bindWins.doGetWinInfo
 SetTimer, doGetWinInfo, Off
 winBtnx:=tapTimes.tapBtn
 tTapTimesx:=tapTimes["btn" . winBtnx]
+OutputDebug, %A_Now%: lib_bindWins.doGetWinInfo, winBtnx: %winBtnx%, tTapTimesx: %tTapTimesx%
 if(tTapTimesx>0&&winBtnx>-1)
 {
   getWinInfo(winBtnx, tTapTimesx)
