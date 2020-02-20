@@ -12,7 +12,7 @@
 # ignore files
 CapsLock+hotString.ini
 CapsLock+winsInfo.ini
-CapsLock+settings.ini
+# CapsLock+settings.ini
 CapsLock+settingsDemo.ini
 CapsLock+winsInfosRecorder.ini
 youdaoApiKey.ahk
