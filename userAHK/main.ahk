@@ -16,6 +16,10 @@ keyfunc_listary()
     
     ; 如果有选中文字的话
     if(selText) {
+        ; 如果文字过长，则截断
+        if (StrLen(selText) > 20) {
+            selText := SubStr(selText, 1, 20)
+        }
         ; 在选中的字前面加上"g "（因为谷歌搜索是我最常用的，你也可以不加）
         selText:="g " . selText
         ; 输出刚才复制的文字，并按一下`home`键将光标移到开头，以方便加入其它关键词
@@ -25,6 +29,13 @@ keyfunc_listary()
 
 ; Windows and W closes active window
 #w::Send, !{F4}
+
+#c::
+try
+    keyfunc_search_google()
+return
+
+::i22::ISO20022
 /*
 不打算修改程序本身，只想为某个按键实现功能的话，可以在这里：
 1. 添加 keyfunc_xxxx() 的函数，
